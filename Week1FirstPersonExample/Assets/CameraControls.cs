@@ -21,6 +21,10 @@ public class CameraControls : MonoBehaviour
     [SerializeField] Vector3 offset;
     [SerializeField] float syncSpeed;
 
+    [Header("Effects")]
+
+    [SerializeField] float tilt;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -38,7 +42,11 @@ public class CameraControls : MonoBehaviour
     {
         mouseX = MouseInput.x * xSens;
 
+        //transform.localRotation = (Vector3.forward * tilt * GetComponent<PlayerMovement>().horizontalInput.x);
+        //transform.rotation = Quaternion.Euler(transform.rotation.x + mouseX * Time.deltaTime, transform.rotation.y, -tilt * GetComponent<PlayerMovement>().horizontalInput.x);
+
         transform.Rotate(Vector3.up, mouseX * Time.deltaTime);
+
         //mainCam.Rotate(Vector3.up, mouseX * Time.deltaTime);
 
         //mainCam.rotation;

@@ -19,6 +19,7 @@ public class InputManager : MonoBehaviour
         groundMovement.horizontal.performed += ctx => HorizontalInput = ctx.ReadValue<Vector2>();
 
         groundMovement.Jump.performed += _u => GetComponent<PlayerMovement>().OnJump();
+        groundMovement.PickUp.performed += _u => GetComponent<playerInventory>().OnPickUp();
     }
 
     // Update is called once per frame

@@ -3625,6 +3625,7 @@ GameObject:
   - component: {fileID: 1203408088}
   - component: {fileID: 1203408089}
   - component: {fileID: 1203408090}
+  - component: {fileID: 1203408091}
   m_Layer: 0
   m_Name: PlayerBase
   m_TagString: Player
@@ -3709,9 +3710,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controller: {fileID: 1203408087}
-  speed: 15
-  verticalVel: {x: 0, y: 0, z: 0}
+  speed: 1300
+  airSpeed: 10000
+  groundSmooth: 0.1
+  airSmooth: 1
   gravity: -20
+  horizontalInput: {x: 0, y: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
@@ -3733,6 +3737,24 @@ MonoBehaviour:
   xClamp: 90
   offset: {x: 0, y: 2.457, z: 0}
   syncSpeed: 100
+  tilt: 5
+--- !u!114 &1203408091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203408082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f713282a4544e1643a7807f102747635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holding: {fileID: 0}
+  range: 5
+  pickUps:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!43 &1255288732
 Mesh:
   m_ObjectHideFlags: 0
@@ -4798,9 +4820,9 @@ GameObject:
   - component: {fileID: 2092357177}
   - component: {fileID: 2092357176}
   - component: {fileID: 2092357175}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: pickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

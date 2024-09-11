@@ -8,9 +8,13 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] CharacterController Controller;
     [SerializeField] float speed = 10.0f;
-    public Vector3 verticalVel;
+    [SerializeField] float airSpeed = 10.0f;
+    [SerializeField] float groundSmooth = 10.0f;
+    [SerializeField] float airSmooth = 10.0f;
+    Vector3 verticalVel;
     [SerializeField] float gravity = -20;
-    Vector2 horizontalInput;
+    public Vector2 horizontalInput;
+    Vector3 vel;
 
     [Header("Gravity")]
     [SerializeField] LayerMask whatIsGround;
@@ -29,9 +33,23 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 HorizontalVelocity = (transform.right * horizontalInput.x + transform.forward *horizontalInput.y) * speed;
+        //Horizontal movement
 
-        Controller.Move(HorizontalVelocity * Time.deltaTime);
+        //Controller.Move(HorizontalVelocity * Time.deltaTime);
+        if (isGrounded)
+        {
+            Vector3 HorizontalVelocity = (transform.right * horizontalInput.x + transform.forward * horizontalInput.y) * speed * Time.deltaTime;
+
+            Controller.Move(Vector3.SmoothDamp(new Vector3(Controller.velocity.x, 0f, Controller.velocity.z), HorizontalVelocity, ref vel, groundSmooth));
+        }
+        else
+        {
+            Vector3 HorizontalVelocity = (transform.right * horizontalInput.x + transform.forward * horizontalInput.y) * airSpeed * Time.deltaTime;
+
+            Controller.Move(Vector3.SmoothDamp(new Vector3(Controller.velocity.x, 0f, Controller.velocity.z), HorizontalVelocity, ref vel, airSmooth));
+        }
+
+        //vertical movement
 
         verticalVel.y += gravity * Time.deltaTime;
         GroundCheck();
